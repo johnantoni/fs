@@ -46,7 +46,21 @@
 
     // arrow functions change the functions lexical / parent scope
 
-    
+    const ages = [12,13,50,30,168,1200]
+    const overEighteen = ages.filter((age) => {
+      console.log(`checking age: ${age}`)
+      return age > 18
+    })
+
+    console.log('everyone over 18:', overEighteen)
+
+    const checkAges = ages.map((age) => {
+      if (age > 1000) {
+        console.log(`${age}! what are you doing here Doctor?`)
+      }
+    })
+
+    checkAges
 
   </script>
 </body>
