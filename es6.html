@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const favDragon = 'drogon';
+    let worstDragon = 'valeraphon';
+    console.log(favDragon, 'vs', worstDragon)
+
+    const tired = (message) => {
+      var status = true
+      return `${message} ${status}`
+    }
+
+    console.log(
+      tired('are you tired?')
+    )
+
+    const arr = [0,1,2]
+
+    arr.forEach((item) => {
+      console.log(item)
+    })
+
+    const trees = ['birch', 'oak', 'fir', 'sapling']
+
+    const pluralTrees = trees.map((item, i) => `${i}:${item}s`)
+
+    console.log(pluralTrees)
+
+    // this is determined by the callsight of where 'this' is declared
+
+    // functions always have two attributes => window and arguments
+
+    function thisIs() {
+      console.log(arguments) // every function has arguments, even if you don't give it any
+      console.log(this) // callsight
+    }
+
+    thisIs('give', 'am', 'arguments')
+
+    // arrow functions change the functions lexical / parent scope
+
+    
+
+  </script>
+</body>
+</html>
