@@ -7,11 +7,24 @@ class Counter extends Component {
       count: 0
     }
     // this.handleClick = this.handleClick.bind(this)
-    console.log("under construction")
+    console.log("constructor")
+  }
+
+  componentCleanup = () => {
+    console.log("componentCleanup")
+  }
+
+  componentWillMount() {
+    console.log("componentWillMount")
+  }
+
+  componentWillUnmount() {
+    this.componentCleanup()
+    console.log("componentWillUnmount")
   }
 
   componentDidMount() {
-    console.log("built!")
+    console.log("componentDidMount")
   }
 
   handleClick = () => {
@@ -34,7 +47,7 @@ class Counter extends Component {
 class Greeting extends Component {
   render() {
     return (
-      <h1>Welcome to my App</h1>
+      <h1>{this.props.message}</h1>
     )
   }
 }
@@ -56,12 +69,15 @@ class App extends Component {
   }
 
   render() {
+    const myText = (<p>Hello</p>)
     return (
       <div>
-        <Greeting/>
+        <Greeting message="Welcome to my App!!!"/>
+        <Greeting message="It's so cool"/>
         <p>
           Do not press this <button onClick={this.handleClick}>button</button>
         </p>
+        {myText}
         <h4>{this.state.potato}</h4>
         {/* i am a comment, if you see me somethings wrong!! */}
         <Counter/>
