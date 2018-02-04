@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import potatoNames from './potatoes'
 
 class Counter extends Component {
   constructor() {
@@ -52,6 +54,34 @@ class Greeting extends Component {
   }
 }
 
+// using propTypes to make sure our components get the props they need to operate, for debugging
+Greeting.propTypes = {
+  message: PropTypes.string.isRequired
+}
+// no you can't put it before defining Greeting as javascript is interpreted from top to bottom!!
+
+// what's called a presentational component
+const Featured = (props) => {
+  return (
+    <div>{props.message}</div>
+  )
+}
+
+const ListPotatoes = (props) => {
+  const potatoes = props.names
+  return (
+    <div>
+      <h3>Potatoes Hall of Fame!!!</h3>
+      <ul>
+        { potatoes.map((item, i) => {
+            return (<li key={i}>{item.name}</li>)
+          })
+        }
+      </ul>
+    </div>
+  )
+}
+
 class App extends Component {
   constructor() {
     super()
@@ -69,7 +99,7 @@ class App extends Component {
   }
 
   render() {
-    const myText = (<p>Hello</p>)
+    const myText = (<p><strong>Why</strong> hello weary traveller!</p>)
     return (
       <div>
         <Greeting message="Welcome to my App!!!"/>
@@ -78,6 +108,8 @@ class App extends Component {
           Do not press this <button onClick={this.handleClick}>button</button>
         </p>
         {myText}
+        <Featured message="i am featured!!"/>
+        <ListPotatoes names={potatoNames}/>
         <h4>{this.state.potato}</h4>
         {/* i am a comment, if you see me somethings wrong!! */}
         <Counter/>
