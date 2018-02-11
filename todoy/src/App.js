@@ -66,19 +66,11 @@ class App extends Component {
           <button onClick={this.addTodo}>Add</button>
         </div>
 
-        <ListTodos/>
+        <ListTodos
+          todos={this.state.todos}
+          removeTodo={this.removeTodo}
+        />
 
-        <ul className="todo-list">
-          {this.state.todos.map((todo, i) => {
-            return (
-              <li key={i}>
-                {todo}
-                &nbsp;
-                <button onClick={(i) => this.removeTodo(i)}>Remove</button>
-              </li>
-            )
-          })}
-        </ul>
       </div>
     );
   }
