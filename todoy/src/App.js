@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import AddTodo from './components/AddTodo'
 import ListTodos from './components/ListTodos'
 
 import './App.css';
@@ -19,7 +20,7 @@ class App extends Component {
     this.setState({[e.target.name]: e.target.value}) // computed properties
   }
 
-  addTodo = () => {
+  addNewTodo = () => {
     const { todo, todos } = this.state
                       /// spread operator, passes contents in one at a time
     const nextTodos = [...todos, todo] // clone and join item to array
@@ -37,7 +38,7 @@ class App extends Component {
   onKeyPress = (e) => {
     if (e.key === 'Enter') {
       console.log('do validate');
-      this.addTodo()
+      this.addNewTodo()
     }
   }
 
@@ -53,19 +54,12 @@ class App extends Component {
     return (
       <div className="App">
         <h1>{this.state.title}</h1>
-        <div>
-          <input
-            type="text"
-            name="todo"
-            placeholder="add your todoy"
-            onChange={this.handleChange}
-            onKeyPress={this.onKeyPress}
-            value={this.state.todo}
-          />
-          &nbsp;
-          <button onClick={this.addTodo}>Add</button>
-        </div>
-
+        <AddTodo
+          handleChange={this.handleChange}
+          onKeyPress={this.onKeyPress}
+          todo={this.state.todo}
+          addNewTodo={this.addNewTodo}
+        />
         <ListTodos
           todos={this.state.todos}
           removeTodo={this.removeTodo}
