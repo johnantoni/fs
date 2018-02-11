@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+
+import ListTodos from './components/ListTodos'
+
 import './App.css';
 
 class App extends Component {
@@ -62,6 +65,8 @@ class App extends Component {
           &nbsp;
           <button onClick={this.addTodo}>Add</button>
         </div>
+
+        <ListTodos/>
 
         <ul className="todo-list">
           {this.state.todos.map((todo, i) => {
