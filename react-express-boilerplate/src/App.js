@@ -47,11 +47,7 @@ class App extends Component {
 
   removeTodo = (index) => {
     axios.delete(`/todos/${index}`);
-    axios.get("/todos").then(res => {
-      if (res.data.todos) {
-        this.setState({ todos: res.data.todos });
-      }
-    });
+    this.refresh()
   }
 
   onKeyPress = (e) => {
