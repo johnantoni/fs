@@ -17,18 +17,13 @@ class App extends Component {
   }
 
   addTodo = () => {
-    axios.post(`/todos/${this.state.todo}`).then(this.refresh);
-    this.clearInput();
-  };
-
-  addTodo = () => {
-    axios.post(`/todos/${this.state.todo}`);
-    axios.get("/todos").then(res => {
-      if (res.data.todos) {
-        this.setState({ todos: res.data.todos });
-      }
-    });
-    this.clearInput();
+    if (this.state.todo !== '') {
+      axios.post(`/todos/${this.state.todo}`)
+        .then(
+          this.refresh()
+        );
+      this.clearInput();
+    }
   };
 
   clearInput = () => {
@@ -45,8 +40,9 @@ class App extends Component {
     });
   };
 
-  removeTodo = (index) => {
-    axios.delete(`/todos/${index}`);
+  removeTodo = (i) => {
+    console.log(i)
+    axios.delete(`/todos/${i}`);
     this.refresh()
   }
 
@@ -67,10 +63,10 @@ class App extends Component {
         <ul className="todo-list">
           {this.state.todos.map((todo, i) => {
             return (
-              <li key={i}>
+              <li key={i} id={`todo-${i}`}>
                 {todo}
                 &nbsp;
-                <button onClick={(i) => this.removeTodo(i)}>Remove</button>
+                <button onClick={(e) => this.removeTodo(i)}>Remove</button>
               </li>
             )
           })}
