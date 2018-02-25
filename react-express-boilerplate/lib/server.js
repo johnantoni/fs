@@ -4,10 +4,6 @@ const PORT = 8080
 
 const todos = [];
 
-app.get('/hello', (req, res) => {
-  res.status(200).json({ message: "hello, is it me your looking for?" })
-})
-
 // get
 // curl -X GET "http://localhost:8080/todos"
 app.get('/todos', (req, res) => {
