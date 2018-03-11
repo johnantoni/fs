@@ -17,7 +17,7 @@ const Post = ({
     <p>{description}</p>
     <button onClick={() => deletePost(_id)}>Delete Post</button>
     {comments.map(comment => (
-      <li>
+      <li key={comment._id}>
         {comment.comment} - {new Date(comment.date).toString()}
         {comment.user && `${comment.user.firstName} ${comment.user.lastName}`}
       </li>

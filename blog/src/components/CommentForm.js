@@ -12,7 +12,6 @@ class CommentForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-
     axios
       .post(`/comment/${this.props._id}`, {
         description: this.state.description,
