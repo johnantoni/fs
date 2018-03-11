@@ -59,6 +59,22 @@ app.post("/post", (req, res) => {
   });
 });
 
+app.delete("/post/:post_id", (req, res) => {
+  const id = req.params.post_id;
+  Post.findByIdAndRemove(id)
+    .then(doc => {
+      res.status(202).json({
+        message: "removed",
+        payload: doc
+      });
+    })
+    .catch(err => {
+      res.status(500).json({
+        message: err.message
+      });
+    });
+});
+
 app.listen(PORT, () => {
   console.log(`Listening on ${PORT}`);
 });

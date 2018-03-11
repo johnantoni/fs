@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Post from "./components/Post";
+import CreatePost from "./components/CreatePost"
 
 class Blog extends Component {
   state = {
@@ -25,10 +26,20 @@ class Blog extends Component {
     this.refresh();
   }
 
+  deletePost = id => {
+    axios.delete(`/post/${id}`).then(this.refresh);
+  };
+
   render() {
     return (
-      <div className="posts">
-        {this.state.posts.map(post => <Post {...post} />)}
+      <div>
+        <CreatePost refresh={this.refresh} />
+
+        <div className="posts">
+          {this.state.posts.map(post => (
+            <Post {...post} deletePost={this.deletePost} />
+          ))}
+        </div>
       </div>
     );
   }
