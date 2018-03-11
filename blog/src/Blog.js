@@ -37,7 +37,7 @@ class Blog extends Component {
 
         <div className="posts">
           {this.state.posts.map(post => (
-            <Post {...post} deletePost={this.deletePost} />
+            <Post key={post._id} {...post} deletePost={this.deletePost} />
           ))}
         </div>
       </div>
