@@ -12,7 +12,7 @@ const Todo = require('../models/todo')
 
 app.get("/todos", (req, res) => {
   // get all todos
-  Todo.find({})
+  Todo.find({}).lean()
     .then(docs => {
       //send back a list of all todos
       res.status(200).send({ message: "Success", payload: docs });
