@@ -14,19 +14,17 @@ mongoose.connect(uri);
 
 const Post = require("../models/post");
 
-
 app.get("/posts", (req, res) => {
-  // find all posts
   Post.find()
+    .populate("user")
+    .populate("comments.user") // <-- add this line
     .then(docs => {
-      // if found, send back a success message with all posts
       res.status(200).json({
         message: "success",
         payload: docs
       });
     })
     .catch(err => {
-      // if not found, send back an error code with the error message
       res.status(500).json({
         message: err.message
       });
@@ -34,16 +32,14 @@ app.get("/posts", (req, res) => {
 });
 
 app.post("/post", (req, res) => {
-    // grab the title and description from the request body
-  const { title, description } = req.body;
-  // instantiate a new post with the title and description
+  const { title, description, user } = req.body;
   const post = new Post({
     title,
-    description
+    description,
+    user
   });
-    // save the post
+
   post.save().then(doc => {
-    // if successfull, send back a success code with the new document
     res
       .status(200)
       .json({
@@ -52,11 +48,27 @@ app.post("/post", (req, res) => {
       })
   })
   .catch(err => {
-    // if unsuccessful, send back error code with error essage
     res.status(500).json({
       message: err.message
     });
   });
+});
+
+app.post("/comment/:post_id", (req, res) => {
+  const { post_id } = req.params;
+  const { description, user } = req.body;
+  const newComment = { comment: description, user };
+  Post.findById(post_id)
+    .then(doc => {
+      doc.comments.push(newComment);
+      return doc.save();
+    })
+    .then(doc => {
+      res.status(200).send({ message: "comment added", payload: doc });
+    })
+    .catch(err => {
+      res.status(500).send({ message: err.message });
+    });
 });
 
 app.delete("/post/:post_id", (req, res) => {

@@ -1,7 +1,7 @@
-import React from "react";
+import React, { Component } from "react";
 import axios from "axios";
 
-class CreatePost extends React.Component {
+class CreatePost extends Component {
   state = {
     title: "",
     description: ""
@@ -19,7 +19,8 @@ class CreatePost extends React.Component {
     axios
       .post("/post", {
         title,
-        description
+        description,
+        user: "5aa58fe20dda5b30cf4d097f"
       })
       .then(this.props.refresh);
   };
