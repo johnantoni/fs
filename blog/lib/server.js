@@ -50,12 +50,12 @@ app.post("/post", (req, res) => {
         message: "post saved",
         payload: doc
       })
-      .catch(err => {
-        // if unsuccessful, send back error code with error essage
-        res.status(500).json({
-          message: err.message
-        });
-      });
+  })
+  .catch(err => {
+    // if unsuccessful, send back error code with error essage
+    res.status(500).json({
+      message: err.message
+    });
   });
 });
 
