@@ -1,3 +1,9 @@
+# rainbow table hacking
+
+http://www.miraclesalad.com/webtools/md5.php
+
+https://crackstation.net/
+
 # react-express-boilerplate
 
 This is an example of how to construct a simple react and express boilerplate. There are advantages and disadvantages to this particular approach which we'll discuss in class, but this is the quickest way to get started and organized on a small React/Express project.

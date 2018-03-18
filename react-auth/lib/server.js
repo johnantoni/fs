@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const bcrypt = require("bcrypt");
 const PORT = 8080;
 
 const app = express();
@@ -36,20 +37,35 @@ app.post("/signup", (req, res) => {
     });
 });
 
+// post to login
 app.post("/login", (req, res) => {
-  // retrieve user and password from body
   const { email, password } = req.body;
-  // find a matching user in our db by email addres
   User.findOne({ email }).then(user => {
-    // check the password the user provided against the password in the db
-    if (user && user.password === password) {
-      // if they match, send back the user
-      res.status(200).json({
-        message: "success",
-        payload: user
-      });
+    if (user) {
+      user
+        // compare a user's hash to the password sent in the HTTP request body
+        .comparePassword(password) // we defined that in our user model, which sends a promise
+        .then(isMatch => {
+          // if they match
+          // send back the user
+          if (isMatch) {
+            res.status(200).json({
+              message: "success",
+              payload: user
+            });
+          } else {
+            // no match, send back a 401
+            res.status(401).json({ message: "unauthorized" });
+          }
+        })
+        // all other errors are 500s!
+        .catch(err => {
+          res.status(500).json({
+            message: err.message
+          });
+        });
     } else {
-      // if they don't match, send back a 401
+      // no user found with the posted email
       res.status(401).json({
         message: "unauthorized"
       });
